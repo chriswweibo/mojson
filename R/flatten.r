@@ -1,0 +1,3 @@
+flattenj=function(origin){
+
+}
