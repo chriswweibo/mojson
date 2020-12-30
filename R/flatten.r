@@ -1,10 +1,14 @@
-library(rlist)
-library(stringr)
-library(magrittr)
-
-pb <- txtProgressBar(style=3)
-
+#' Title transform a loaded json objects into a flatted data frame.
+#'
+#' @param dat list. loaded result from a json file.
+#'
+#' @return data frame. flattening result.
+#' @export
+#' @importFrom rlist list.flatten
+#'
+#' @examples
 flattenj= function(dat){
+  pb <-  txtProgressBar(style=3)
   flat= list.flatten(dat)
   expanded = list(root=0)
   for(i in 1:length(flat)){
