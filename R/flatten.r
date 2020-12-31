@@ -4,25 +4,22 @@
 #'
 #' @return data frame. flattening result.
 #' @export
-#' @importFrom rlist list.flatten
+#' @importFrom rlist list.rbind
+#' @importFrom iterators iter
+#' @importFrom iterators nextElem
 #'
 #' @examples
-flattenj= function(dat){
-  pb <-  txtProgressBar(style=3)
-  flat= list.flatten(dat)
-  expanded = list(root=0)
-  for(i in 1:length(flat)){
-    if(!is.null(names(flat[[i]]))){
-      father_name = names(flat[i])
-      children = as.list(flat[[i]])
-      names(children)=paste(father_name, names(children),sep='.')
-      expanded=unlist(c(expanded, children))
-    }
-    else{
-      expanded=unlist(c(expanded,flat[i]))
-    }
-    setTxtProgressBar(pb,value=i/length(flat))
+flattenj <- function(dat)
+{
+  pb <- txtProgressBar(style = 3)
+  len= length(dat)
+  result <- list()
+  for (i in 1:len){
+    tmp = cbind(flattenj_one(dat[i]),index=i)
+    result[[i]] = tmp
+    setTxtProgressBar(pb, value = i/len)
   }
-  expanded$root=NULL
-  return(expanded)
+  result = list.rbind(result)
+  return(result)
 }
+
