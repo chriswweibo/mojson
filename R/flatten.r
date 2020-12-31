@@ -9,17 +9,10 @@
 #' @importFrom iterators nextElem
 #'
 #' @examples
-flattenj <- function(dat)
-{
-  pb <- txtProgressBar(style = 3)
-  len= length(dat)
-  result <- list()
-  for (i in 1:len){
-    tmp = cbind(flattenj_one(dat[i]),index=i)
-    result[[i]] = tmp
-    setTxtProgressBar(pb, value = i/len)
-  }
-  result = list.rbind(result)
+
+flattenj <- function(dat){
+  i= iter(1:length(dat))
+  result = list.apply(dat, function(x) flattenj_one(x) %>% cbind(.,index=nextElem(i))) %>% list.rbind()
+
   return(result)
 }
-
