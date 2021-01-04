@@ -4,7 +4,7 @@
 \alias{loadj}
 \title{Title load a json file connection into an R list}
 \usage{
-loadj(file, encoding = "UTF-8")
+loadj(file)
 }
 \arguments{
 \item{file}{character. a json file connection}

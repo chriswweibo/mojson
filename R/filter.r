@@ -1,3 +1,6 @@
-filterj=function(j, key, value){
+filterj=function(dat, path, value){
+  result = flattenj(dat) %>% subset(., path == value) %>% nest()
+  return(result)
+
 
 }

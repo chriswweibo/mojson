@@ -7,6 +7,7 @@
 #' @importFrom rlist list.rbind
 #' @importFrom iterators iter
 #' @importFrom iterators nextElem
+#' @importFrom magrittr %>%
 #'
 #' @examples
 

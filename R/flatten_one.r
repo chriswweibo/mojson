@@ -17,7 +17,7 @@ flattenj_one <- function(dat)
     {
       father_name <- names(flat[i])
       children <- as.list(flat[[i]])
-      names(children) <- paste(father_name, names(children), sep = ".")
+      names(children) <- paste(father_name, names(children), sep = '.')
       expanded <- unlist(c(expanded, children))
     } else
     {

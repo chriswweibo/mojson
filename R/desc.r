@@ -12,36 +12,39 @@
 #' @examples
 descj= function(dat){
   pb <- txtProgressBar(style=3)
-  print('generating key summary...')
   dat =flattenj(dat)
+  message('generating key summary...')
   paths = dat$paths # all paths in the records
   path_keys = paths %>%  sapply(., str_split, '\\.')  # all keys in the path strings
-  keys_summary= path_keys %>% unlist() %>% table() %>% as.data.frame() # keys occurrance
+  keys_summary= path_keys %>% unlist() %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]# keys occurrance
 
-  print('generating stream summary...')
+  message('generating stream summary...')
   idx= nrow(keys_summary)
   stream_summary=as.list(1:idx)
   names(stream_summary)=keys_summary$.
   for(i in 1:idx){
     key = keys_summary$.[i]
-    extracted = paths[grepl(key, paths)]
-    up= str_remove_all(extracted, paste('\\.*', key,'.*',sep = '')) %>%
+    key_pattern = paste('\\.',key,'$','|','^',key,'\\.','|','\\.',key,'\\.','|','^',key,'$', sep='')
+    extracted = paths[grepl(key_pattern, paths)]
+    father= str_remove_all(extracted, paste('\\.?', key,'.*',sep = '')) %>%
       sapply(., function(x) str_split(x, '\\.')[[1]] %>% .[length(.)]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]
-    down= str_remove_all(extracted, paste('.*',key,'\\.*', sep = '')) %>%
+    children= str_remove_all(extracted, paste('.*',key,'\\.?', sep = '')) %>%
       sapply(., function(x) str_split(x, '\\.')[[1]] %>% .[1]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]
 
-    stream_summary[[i]]=list(father=up,children=down)
+    stream_summary[[i]]=list(father=father,children=children)
 
 setTxtProgressBar(pb, i/idx)
   }
 
 
-  print('generating value summary...')
+  message('generating value summary...')
 unique_innermost=paths %>% sapply(., function(x) str_split(x, '\\.')[[1]] %>% .[length(.)]) %>% unique()
 value_summary=list()
 for (j in 1:length(unique_innermost)){
-  value_set= subset(dat, grepl(unique_k[j], dat$paths))
-  value_summary[[j]] = value_set$values %>% table() %>% as.data.frame()
+  key =unique_innermost[j]
+  key_pattern = paste('\\.',key,'$','|','^',key,'\\.','|','\\.',key,'\\.','|','^',key,'$', sep='')
+  value_set= subset(dat, grepl(key_pattern, dat$paths))
+  value_summary[[j]] = value_set$values %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]
   setTxtProgressBar(pb, j/length(unique_innermost))
 }
 names(value_summary)=unique_innermost

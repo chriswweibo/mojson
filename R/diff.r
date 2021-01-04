@@ -1,4 +1,12 @@
-library(dplyr)
+#' Title calculating the difference between two jsons.
+#'
+#' @param json_from list. The original json list.
+#' @param json_to list. The target json list.
+#'
+#' @return data.frame. The difference between two json lists.
+#' @export dplyr setdiff
+#'
+#' @examples
 diffj=function(json_from,json_to){
 from= flattenj(json_from)
 to = flattenj(json_to)
