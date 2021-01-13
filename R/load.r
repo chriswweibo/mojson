@@ -8,7 +8,8 @@
 #' @importFrom RJSONIO fromJSON
 #'
 #' @examples
-loadj=function(file){
+#'
+loadj=function(file='R/test.JSON'){
   tic = Sys.time()
  dat = RJSONIO::fromJSON(file)
  toc = Sys.time()
@@ -22,4 +23,3 @@ loadj=function(file){
   return(dat)
 }
 
-# tmp = fromJSON("~/projects/淋巴瘤多中心/友谊医院/youyi_checked_20200430.JSON")
