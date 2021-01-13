@@ -7,7 +7,7 @@
 #' @importFrom rlist list.flatten
 #'
 #' @examples
-flattenj_one <- function(dat)
+flattenj_one <- function(dat,seperator='.')
 {
   flat <- list.flatten(dat)
   expanded <- list(root = 0)
@@ -17,7 +17,7 @@ flattenj_one <- function(dat)
     {
       father_name <- names(flat[i])
       children <- as.list(flat[[i]])
-      names(children) <- paste(father_name, names(children), sep = '.')
+      names(children) <- paste(father_name, names(children), sep = seperator)
       expanded <- unlist(c(expanded, children))
     } else
     {

@@ -11,7 +11,6 @@
 #'
 #' @examples
 descj= function(dat){
-  pb <- txtProgressBar(style=3)
   dat =flattenj(dat)
   message('generating key summary...')
   paths = dat$paths # all paths in the records
@@ -32,8 +31,6 @@ descj= function(dat){
       sapply(., function(x) str_split(x, '\\.')[[1]] %>% .[1]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]
 
     stream_summary[[i]]=list(father=father,children=children)
-
-setTxtProgressBar(pb, i/idx)
   }
 
 
@@ -45,7 +42,6 @@ for (j in 1:length(unique_innermost)){
   key_pattern = paste('\\.',key,'$','|','^',key,'\\.','|','\\.',key,'\\.','|','^',key,'$', sep='')
   value_set= subset(dat, grepl(key_pattern, dat$paths))
   value_summary[[j]] = value_set$values %>% table() %>% as.data.frame() %>% .[order(-.$Freq),]
-  setTxtProgressBar(pb, j/length(unique_innermost))
 }
 names(value_summary)=unique_innermost
     return(list(keys_summary=keys_summary,stream_summary=stream_summary, value_summary=value_summary ))

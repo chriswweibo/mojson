@@ -1,12 +1,14 @@
 library(magrittr)
 
-nestj_one=function(dat){
-  keys = dat$paths %>% sapply(., function(x) str_split(x,'\\.'))
-  max_level = keys %>% sapply(.,length) %>% max()
-  key_level = list(rep(list(NULL),max_level))
-  keys_unique = keys %>% unlist() %>% unique()
-  for (i in 1:length(keys)){
-
+nestj_one=function(dat,complete=F){
+if(!complete){
+dat = expanddf(dat)
+}
+  else{
+    dat = dat
   }
+  level_coln = colnames(dat) %>% .[grepl('level',.)]
+  keys = lapply(level_coln, function(x) dat[[x]] %>% str_remove_all(.,'[0-9]+$') %>% unique %>% na.omit)
 
+  nestedlist <- split(dat, level_coln, drop = TRUE)
 }

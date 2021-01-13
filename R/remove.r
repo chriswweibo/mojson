@@ -1,3 +1,0 @@
-removej=function(dat,path){
-
-}

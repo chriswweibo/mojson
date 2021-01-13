@@ -8,12 +8,21 @@
 #' @importFrom iterators iter
 #' @importFrom iterators nextElem
 #' @importFrom magrittr %>%
+#' @importFrom tidyr seperate
 #'
 #' @examples
+#'
 
-flattenj <- function(dat){
+flattenj <- function(dat, complete=FALSE){
   i= iter(1:length(dat))
-  result = list.apply(dat, function(x) flattenj_one(x) %>% cbind(.,index=nextElem(i))) %>% list.rbind()
+  tmp = list.apply(dat, function(x) flattenj_one(x) %>% cbind(.,index=nextElem(i))) %>% list.rbind()
+  if(!complete){
+    result = tmp
+  }
+  else {
+    result = expanddf(tmp)
+  }
 
   return(result)
 }
+
