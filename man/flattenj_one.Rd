@@ -4,7 +4,7 @@
 \alias{flattenj_one}
 \title{Title transform a loaded json objects into a flatted data frame.}
 \usage{
-flattenj_one(dat)
+flattenj_one(dat, seperator = ".")
 }
 \arguments{
 \item{dat}{list. loaded result from a json file.}

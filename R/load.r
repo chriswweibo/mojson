@@ -1,7 +1,7 @@
 #' Title load a json file connection into an R list
 #'
 #' @param file character. a json file connection
-#' @param encoding character.Defaul to UTF-8. encoding method
+#' @param encoding character.Default to UTF-8. encoding method
 #'
 #' @return list. the loading result
 #' @export
@@ -9,9 +9,11 @@
 #'
 #' @examples
 #'
-loadj=function(file='R/test.JSON'){
+
+library(RJSONIO)
+loadj=function(file='R/test.JSON', encoding='UTF-8'){
   tic = Sys.time()
- dat = RJSONIO::fromJSON(file)
+ dat = fromJSON(file, encoding=encoding)
  toc = Sys.time()
  info = list()
  info$num_of_loaded_obj=length(dat)

@@ -4,7 +4,7 @@
 \alias{flattenj}
 \title{Title transform a loaded json objects into a flatted data frame.}
 \usage{
-flattenj(dat)
+flattenj(dat, complete = FALSE)
 }
 \arguments{
 \item{dat}{list. loaded result from a json file.}
@@ -14,4 +14,7 @@ data frame. flattening result.
 }
 \description{
 Title transform a loaded json objects into a flatted data frame.
+}
+\examples{
+
 }

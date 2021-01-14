@@ -4,7 +4,8 @@
 #' @param json_to list. The target json list.
 #'
 #' @return data.frame. The difference between two json lists.
-#' @export compareDF compare_df
+#' @importFrom tidyr separate
+#' @export
 #'
 #' @examples
 diffj=function(json_new, json_old){

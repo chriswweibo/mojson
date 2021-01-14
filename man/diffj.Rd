@@ -4,7 +4,7 @@
 \alias{diffj}
 \title{Title calculating the difference between two jsons.}
 \usage{
-diffj(json_from, json_to)
+diffj(json_new, json_old)
 }
 \arguments{
 \item{json_from}{list. The original json list.}

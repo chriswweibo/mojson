@@ -8,7 +8,6 @@
 #' @importFrom iterators iter
 #' @importFrom iterators nextElem
 #' @importFrom magrittr %>%
-#' @importFrom tidyr seperate
 #'
 #' @examples
 #'
