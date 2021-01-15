@@ -2,16 +2,38 @@
 % Please edit documentation in R/flatten_one.r
 \name{flattenj_one}
 \alias{flattenj_one}
-\title{Title transform a loaded json objects into a flatted data frame.}
+\title{Length-one JSON flatten}
 \usage{
-flattenj_one(dat, seperator = ".")
+flattenj_one(dat, sep = "@", compact = TRUE)
 }
 \arguments{
 \item{dat}{list. loaded result from a json file.}
+
+\item{sep}{character. A character/string used to separate full keys in the nesting path.
+Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
+When \code{compact=FALSE}, you need not to assign \code{sep} explicitly, unless @ has been used in the keys.}
+
+\item{compact}{Boolean. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
 }
 \value{
-data frame. flattening result.
+data frame. The flattened result.
 }
 \description{
-Title transform a loaded json objects into a flatted data frame.
+transform a json object into a flattened data frame.
+}
+\details{
+The function can flatten a json object whose length is one, into a new data frame.
+The data frame has two different styles of output according to the \code{complete} value.#'
+For \code{compact=TRUE}, the data frame has two columns. One is \code{paths} which stores the absolute path of each record.
+And the other is \code{values} which stores the corresponding values of each path.#'
+For \code{compact=FALSE}, the data frame has more columns based on the nesting way. see \code{expanddf()}.
+It actually applies the serialization way for flattening, which means the early values always consistently appear in the heading rows of the data frame.
+And if the value is a list object in the original data or a non-named list/vector in the R environment, the path will correspondingly be appended with a integer to specify each list element.
+}
+\examples{
+library(mojson)
+j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
+flattenj_one(j)
+flattenj_one(j, compact=F)
+
 }

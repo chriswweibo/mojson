@@ -1,16 +1,23 @@
-#' Title load a json file connection into an R list
-#'
-#' @param file character. a json file connection
-#' @param encoding character.Default to UTF-8. encoding method
-#'
-#' @return list. the loading result
+#' JSON load
+#' @description Load a json file into an R list
+#' @param file character. A json file connection
+#' @param encoding character. Encoding method to use. Defaults to UTF-8.
+#' @details This function provides a simple interface to load a json file, which prints some loading information.
+#' `num_of_loaded_obj` tells the length of the json object.
+#' `duration_seconds` tells the loading duration.
+#' `speed_objs_sec` tells the loading speed in objects per second.
+#' `obj_len_summary` gives the length summary of each json object.
+#' @return list. The loading result.
 #' @export
 #' @importFrom RJSONIO fromJSON
 #'
 #' @examples
-#'
+#' library(mojson)
+#' j =list(a=list(1,2),b=3)
+#' tf=tempfile()
+#' writeLines(RJSONIO::toJSON(j),tf)
+#' loadj(tf)
 
-library(RJSONIO)
 loadj=function(file='R/test.JSON', encoding='UTF-8'){
   tic = Sys.time()
  dat = fromJSON(file, encoding=encoding)

@@ -2,19 +2,35 @@
 % Please edit documentation in R/flatten.r
 \name{flattenj}
 \alias{flattenj}
-\title{Title transform a loaded json objects into a flatted data frame.}
+\title{JSON flatten}
 \usage{
-flattenj(dat, complete = FALSE)
+flattenj(dat, sep = "@", compact = TRUE)
 }
 \arguments{
 \item{dat}{list. loaded result from a json file.}
+
+\item{sep}{character. A character/string used to separate full keys in the nesting path.
+Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
+When \code{compact=FALSE}, you need not to assign \code{sep} explicitly, unless @ has been used in the keys.}
+
+\item{compact}{Boolean. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
 }
 \value{
-data frame. flattening result.
+data frame. The flattened result.
 }
 \description{
-Title transform a loaded json objects into a flatted data frame.
+transform multiple json objects into a flattened data frame.
+}
+\details{
+The function can flatten multiple json objects into a new data frame. The result contains multiple columns.
+If \code{compact=TRUE}, it returns paths, values and index columns, otherwise level1,level2..., values and index.
+The \code{index} column stores the id of each json object. For other information, see \code{flattenj_one()}.
 }
 \examples{
+library(mojson)
+j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
+j_multi = list(j,j,j)
+flattenj(j_multi)
+flattenj(j_multi, compact=F)
 
 }
