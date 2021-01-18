@@ -31,10 +31,11 @@ flattenj <- function(dat, sep='@', compact=TRUE){
   message('(1/2) flattening to the compact result...')
   tmp = list.apply(dat, function(x) flattenj_one(x, sep=sep, compact=TRUE) %>% cbind(.,index=nextElem(i))) %>% list.rbind()
   if(compact){
+    message('(2/2) return the compact result...')
     return(tmp)
   }
   else {
-    message('(2/2) flattening to the expanded result...')
+    message('(2/2) return the expanded result...')
     return(expanddf(tmp, column = 'paths', sep = sep))
   }
 }

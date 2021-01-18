@@ -26,6 +26,6 @@ new= flattenj_one(json_new, sep=sep)
 old = flattenj_one(json_old, sep=sep)
 
 result = suppressWarnings(compare_df(new, old))
-return(list(difference = result$comparison_df, summary = result$change_summary))
+return(list(update = result$comparison_df, summary = result$change_summary))
 
 }

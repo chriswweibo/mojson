@@ -23,7 +23,7 @@ And the \code{summary} provides some useful summarization.
 calculating the difference between two JSON objects.
 }
 \details{
-This function can find the different between two JSON/list objects.
+This function can find the difference between two JSON/list objects.
 The difference information is categorized into three types: key addition, key removal and value change.
 All these differences can be reflected by '+(add)', and '-(delete)' chng_type in the new JSON.
 }

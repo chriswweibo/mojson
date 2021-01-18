@@ -7,7 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ckris@163.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: mojson supports json flattening in a long data frame way, where the nesting keys will be stored as the absolute 'path'. It also
+   provides an easy way to summarize the basic description of a JSON object. The idea of mojson is to transform a JSON object in a 
+   absolute serialization way 
 License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true
