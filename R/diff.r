@@ -10,7 +10,7 @@
 #' @param primary character. The primary key or path to identify a unique JSON object.
 #'     Usually a nesting path containing the `sep` character provided previously.
 #'
-#' @return list. Contains thw difference result, including create, delete and update information.
+#' @return list. Contains the difference result, including create, delete and update information.
 #' @export
 #'
 #' @examples
@@ -24,14 +24,15 @@ diffj=function(json_new,json_old, sep='@', primary){
   only_new = align_result$new_primary
   only_old = align_result$old_primary
 
-  new_index = new[new[primary]==only_new,]$index
+  new_index = subset(new, paths == primary & values == only_new)$index
   new_ = subset(new, index == new_index)
-  old_index= old[old[primary]==only_old,]$index
+  old_index = subset(old, paths == primary & values == only_old)$index
   old_ = subset(old, index == old_index)
 
   new_common = subset(new, !is.element(index, new_index))
+  # rownames(new_common)=NULL
   old_common = subset(old, !is.element(index, old_index))
-
+  # rownames(old_common)=NULL
   common_result = suppressWarnings(compare_df(new_common, old_common))
   return(list(create =new_, delete=old_, update = common_result$comparison_df, summary = common_result$change_summary))
 
