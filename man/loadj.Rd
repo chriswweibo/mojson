@@ -7,22 +7,22 @@
 loadj(file = "R/test.JSON", encoding = "UTF-8")
 }
 \arguments{
-\item{file}{character. A json file connection}
+\item{file}{\code{character}. A JSON file connection.}
 
-\item{encoding}{character. Encoding method to use. Defaults to UTF-8.}
+\item{encoding}{\code{character}. Encoding method to use. Defaults to UTF-8.}
 }
 \value{
-list. The loading result.
+\code{list}. The loading result.
 }
 \description{
-Load a json file into an R list
+Load a JSON file into an R list
 }
 \details{
 This function provides a simple interface to load a json file, which prints some loading information.
-\code{num_of_loaded_obj} tells the length of the json object.
+\code{num_of_loaded_obj} tells the length of the JSON object.
 \code{duration_seconds} tells the loading duration.
 \code{speed_objs_sec} tells the loading speed in objects per second.
-\code{obj_len_summary} gives the length summary of each json object.
+\code{obj_len_summary} gives the length summary of each JSON object.
 }
 \examples{
 library(mojson)

@@ -2,18 +2,18 @@
 % Please edit documentation in R/desc.r
 \name{descj}
 \alias{descj}
-\title{Title give the some description about the json list, such as keys and values.}
+\title{JSON description}
 \usage{
 descj(dat)
 }
 \arguments{
-\item{dat}{list. a JSOn list.}
+\item{dat}{\code{list}. a JSON list.}
 }
 \value{
-list. the result contains three parts. key_summary presents the description
-of keys. value_summary presents the description of values. And stream_summary
-presents the description of keys' direct father and children.
+\code{list}. The result contains three parts. \code{key_summary} presents the description
+of keys. \code{value_summary} presents the description of values. And \code{stream_summary}
+presents the description of keys' direct upstream keys and downstream keys.
 }
 \description{
-Title give the some description about the json list, such as keys and values.
+Give descriptive information about the JSON list, such as the key frequency,  the nesting information and the value distribution.
 }

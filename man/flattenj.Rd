@@ -7,24 +7,24 @@
 flattenj(dat, sep = "@", compact = TRUE)
 }
 \arguments{
-\item{dat}{list. loaded result from a json file.}
+\item{dat}{\code{list}. Loaded result from a json file.}
 
-\item{sep}{character. A character/string used to separate full keys in the nesting path.
+\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
 Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-When \code{compact=FALSE}, you need not to assign \code{sep} explicitly, unless @ has been used in the keys.}
+When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.}
 
-\item{compact}{Boolean. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
+\item{compact}{logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
 }
 \value{
-data frame. The flattened result.
+\code{data frame}. The flattened result.
 }
 \description{
-transform multiple json objects into a flattened data frame.
+Transform multiple JSON objects into a flattened data frame.
 }
 \details{
 The function can flatten multiple json objects into a new data frame. The result contains multiple columns.
 If \code{compact=TRUE}, it returns paths, values and index columns, otherwise level1,level2..., values and index.
-The \code{index} column stores the id of each json object. For other information, see \code{flattenj_one()}.
+The index column stores the id of each JSON object.
 }
 \examples{
 library(mojson)
@@ -33,4 +33,7 @@ j_multi = list(j,j,j)
 flattenj(j_multi)
 flattenj(j_multi, compact=F)
 
+}
+\seealso{
+\code{\link{flattenj_one}}.
 }

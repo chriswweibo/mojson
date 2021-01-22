@@ -1,21 +1,25 @@
 #' Length-one JSON flatten
-#' @description transform a json object into a flattened data frame.
-#' @param dat list. loaded result from a json file.
-#' @param sep character. A character/string used to separate full keys in the nesting path.
+#' @description Transform a JSON object into a flattened data frame.
+#' @param dat \code{list}. The list from a JSON object.
+#' @param sep \code{character}. A character/string used to separate keys in the nesting path.
 #'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-#'     When `compact=FALSE`, you need not to assign `sep` explicitly, unless @ has been used in the keys.
-#' @param compact Boolean. Whether to generate the compact or completely expanded data frame. Defaults to `TRUE`.
-#' @details The function can flatten a json object whose length is one, into a new data frame.
-#'     The data frame has two different styles of output according to the `complete` value.#'
-#'     For `compact=TRUE`, the data frame has two columns. One is `paths` which stores the absolute path of each record.
-#'     And the other is `values` which stores the corresponding values of each path.#'
-#'     For `compact=FALSE`, the data frame has more columns based on the nesting way. see `expanddf()`.
-#'     It actually applies the serialization way for flattening, which means the early values always consistently appear in the heading rows of the data frame.
-#'     And if the value is a list object in the original data or a non-named list/vector in the R environment, the path will correspondingly be appended with a integer to specify each list element.
+#'     When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.
+#' @param compact logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.
+#' @details The function can flatten a JSON object whose length is one, into a new data frame.
+#'     The data frame has two different styles according to the \code{compact} value.
+#'     For \code{compact=TRUE}, the data frame has two columns. One is `paths` which stores the absolute path of each record.
+#'     And the other is `values` which stores the corresponding values of each path.
+#'     For \code{compact=FALSE}, the data frame has more columns based on the nesting way.
+#'     It actually applies the serialization way for flattening, which means the early values always correspondingly appear in the heading rows of the data frame.
+#'     And if the value is a list object in the original data or a non-named list/vector in the R environment,
+#'     the path will correspondingly be appended with a integer to specify each list element.
+#'     For example, in the raw JSON file, "\{'a':\[1, 2, 3\]\}" will be \code{list('a1'=1, 'a2'=2, 'a3'=3)}.
+#'     Great credits to the author of \code{rlist}, \href{https://github.com/renkun-ken/rlist/blob/master/R/list.flatten.R}{Kun Ren}
+#' @seealso \code{\link{expanddf}}.
 #'
-#' @return data frame. The flattened result.
+#' @return \code{data frame}. The flattened result.
 #' @export
-#' @importFrom rlist list.flatten
+#'
 #'
 #' @examples
 #' library(mojson)
@@ -23,9 +27,21 @@
 #' flattenj_one(j)
 #' flattenj_one(j, compact=F)
 #'
-flattenj_one <- function(dat, sep='@', compact=TRUE){
-  warning('Please make sure the sep provided or @ does NOT appear in the JSON key fields.')
-  flat <- list.flatten(dat)
+flattenj_one <- function(dat, sep = '@', compact = TRUE) {
+  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overiding value for the sep variable.')
+
+
+  len <- sum(rapply(dat, function(x) 1L))
+  flat <- vector("list", len)
+  i <- 0L
+  items <- rapply(dat, function(x) {
+    i <<- i + 1L
+    flat[[i]] <<- x
+    TRUE
+  })
+  if (!is.null(nm <- names(items)))
+    names(flat) <- nm %>% sapply(., gsub, pattern = '.', replacement = sep, fixed = T)
+
   expanded <- list(root = 0)
   for (i in 1:length(flat))
   {
@@ -33,7 +49,8 @@ flattenj_one <- function(dat, sep='@', compact=TRUE){
     {
       father_name <- names(flat[i])
       children <- as.list(flat[[i]])
-      names(children) <- paste(father_name, names(children), sep = sep)
+      names(children) <-
+        paste(father_name, names(children), sep = sep)
       expanded <- unlist(c(expanded, children))
     } else
     {
@@ -41,8 +58,12 @@ flattenj_one <- function(dat, sep='@', compact=TRUE){
     }
   }
   expanded = expanded[-1]
-  result = data.frame(paths = names(expanded), values = unlist(expanded), row.names = NULL)
-  if(compact){
+  result = data.frame(
+    paths = names(expanded),
+    values = unlist(expanded),
+    row.names = NULL
+  )
+  if (compact) {
     return(result)
   }
   else{
@@ -50,5 +71,3 @@ flattenj_one <- function(dat, sep='@', compact=TRUE){
   }
 
 }
-
-

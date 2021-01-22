@@ -7,25 +7,24 @@
 diffj_one(json_new, json_old, sep = "@")
 }
 \arguments{
-\item{json_new}{list. The new json list.}
+\item{json_new}{\code{list}. The new JSON list.}
 
-\item{json_old}{list. The old json list.}
+\item{json_old}{\code{list}. The old JSON list.}
 
-\item{sep}{character. A character/string used to separate full keys in the nesting path.
-Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-See \code{flattenj_one()}.}
+\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.}
 }
 \value{
-list. The difference between two JSON objects. The \code{difference} stores the data frame about the details of each change.
+\code{list}. The difference between two JSON objects. The \code{update} stores the data frame about the details of each type of change.
 And the \code{summary} provides some useful summarization.
 }
 \description{
-calculating the difference between two JSON objects.
+Calculate the difference between two JSON objects.
 }
 \details{
 This function can find the difference between two JSON/list objects.
-The difference information is categorized into three types: key addition, key removal and value change.
-All these differences can be reflected by '+(add)', and '-(delete)' chng_type in the new JSON.
+The difference information has three sources: path addition, path removal and value change.
+All differences are reflected by '+(add)', and '-(delete)' chng_type in the result.
 }
 \examples{
 library(mojson)
@@ -33,4 +32,7 @@ j1 = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
 j2= list(a=list(x=1,y=3),b=c(3,list(z=5,s=4,t=list(n=8))))
 diffj_one(j1, j2)
 
+}
+\seealso{
+\code{\link{flattenj_one}}
 }

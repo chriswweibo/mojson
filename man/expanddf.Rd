@@ -7,27 +7,27 @@
 expanddf(df, column, sep = "@")
 }
 \arguments{
-\item{df}{data frame.}
+\item{df}{\code{data frame}.}
 
-\item{column}{character. The column to be splitted.}
+\item{column}{\code{character}. The column to be splitted.}
 
-\item{sep}{character. Used to split a column. Defaults to @.}
+\item{sep}{\code{character}. Separator for splitting a column. Defaults to @.}
 }
 \value{
-data frame that has been expanded by splitting one column.
+\code{data frame}. The resultant data frame with new columns.
 }
 \description{
 Expand a data frame by splitting one column
 }
 \details{
-This function implements the data frame expansion if you need to split one column into pieces.
-The new data frame will generate the new columns which are named by 'level'appended by indexing numbers, such as 'level1', 'level2'.
-The maximum of number indicates the deepest level. Any rows narrower than this number will be padded and corresponding cells will be filled with NAs.
+This function implements the data frame expansion if you need to split one column by the specific characters.
+The new data frame will generate the new columns which are named as 'level' appended by indexing numbers, such as 'level1', 'level2'.
+The maximum of appended numbers indicates the deepest level. Any rows narrower than this number will be padded and corresponding cells will be filled with NAs.
 }
 \examples{
 library(mojson)
 # use default separator and nesting levels are identical.
-df1 = data.frame(a=c('192.168.75.0','192.168.75.1'), b=c('T','F'))
+df1 = data.frame(a=c('ab@gmail.com','cd@gmail.com'), b=c('T','F'))
 expanddf(df1,'a')
 
 # change the separator and treat various nesting levels.

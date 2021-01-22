@@ -7,20 +7,23 @@
 diffj(json_new, json_old, sep = "@", primary)
 }
 \arguments{
-\item{json_new}{list. The new json objects.}
+\item{json_new}{\code{list}. The new json objects.}
 
-\item{json_old}{list. The old json objects.}
+\item{json_old}{\code{list}. The old json objects.}
 
-\item{sep}{character. A character/string used to separate full keys in the nesting path.
-Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-When \code{compact=FALSE}, you need not to assign \code{sep} explicitly, unless @ has been used in the keys.}
+\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky words like . and \.
+When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.}
 
-\item{primary}{character. The primary key or path to identify a unique JSON object.
-Usually a nesting path containing the \code{sep} character provided previously.}
+\item{primary}{\code{character}. The primary key or path to identify a unique JSON object.
+The value provided should contains the \code{sep} value to specify the nesting information unless it is an outermost key.}
 }
 \value{
-list. Contains thw difference result, including create, delete and update information.
+\code{list}. Contains the difference result, including create, delete and update information.
 }
 \description{
-find the differences between multiple JSON objects including create, delete and update.
+Find the differences between multiple JSON objects including create, delete and update.
+}
+\seealso{
+\code{\link{diffj_one}}.
 }

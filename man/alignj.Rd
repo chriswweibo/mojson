@@ -2,16 +2,26 @@
 % Please edit documentation in R/align.r
 \name{alignj}
 \alias{alignj}
-\title{Title}
+\title{JSON list alignment}
 \usage{
 alignj(json_new, json_old, sep = "@", primary)
 }
 \arguments{
-\item{primary}{}
+\item{json_new}{\code{list}. The new JSON list.}
+
+\item{json_old}{\code{list}. The new old list.}
+
+\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.}
+
+\item{primary}{\code{character}. The primary path(keys) for identifying a unique JSON object.
+The value provided should contains the \code{sep} value to specify the nesting information unless it is an outermost key.}
 }
 \value{
-
+\code{list}. The result list contains the alignment information including objects only in the new JSON,
+objects only in the old JSON, and those in both.
 }
 \description{
-Title
+Align the two JSON lists by specifying the primary key(path), to fulfill
+the left/inner/right-join style comparison.
 }

@@ -7,28 +7,31 @@
 flattenj_one(dat, sep = "@", compact = TRUE)
 }
 \arguments{
-\item{dat}{list. loaded result from a json file.}
+\item{dat}{\code{list}. The list from a JSON object.}
 
-\item{sep}{character. A character/string used to separate full keys in the nesting path.
+\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
 Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-When \code{compact=FALSE}, you need not to assign \code{sep} explicitly, unless @ has been used in the keys.}
+When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.}
 
-\item{compact}{Boolean. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
+\item{compact}{logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
 }
 \value{
-data frame. The flattened result.
+\code{data frame}. The flattened result.
 }
 \description{
-transform a json object into a flattened data frame.
+Transform a JSON object into a flattened data frame.
 }
 \details{
-The function can flatten a json object whose length is one, into a new data frame.
-The data frame has two different styles of output according to the \code{complete} value.#'
+The function can flatten a JSON object whose length is one, into a new data frame.
+The data frame has two different styles according to the \code{compact} value.
 For \code{compact=TRUE}, the data frame has two columns. One is \code{paths} which stores the absolute path of each record.
-And the other is \code{values} which stores the corresponding values of each path.#'
-For \code{compact=FALSE}, the data frame has more columns based on the nesting way. see \code{expanddf()}.
-It actually applies the serialization way for flattening, which means the early values always consistently appear in the heading rows of the data frame.
-And if the value is a list object in the original data or a non-named list/vector in the R environment, the path will correspondingly be appended with a integer to specify each list element.
+And the other is \code{values} which stores the corresponding values of each path.
+For \code{compact=FALSE}, the data frame has more columns based on the nesting way.
+It actually applies the serialization way for flattening, which means the early values always correspondingly appear in the heading rows of the data frame.
+And if the value is a list object in the original data or a non-named list/vector in the R environment,
+the path will correspondingly be appended with a integer to specify each list element.
+For example, in the raw JSON file, "\{'a':[1, 2, 3]\}" will be \code{list('a1'=1, 'a2'=2, 'a3'=3)}.
+Great credits to the author of \code{rlist}, \href{https://github.com/renkun-ken/rlist/blob/master/R/list.flatten.R}{Kun Ren}
 }
 \examples{
 library(mojson)
@@ -36,4 +39,7 @@ j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
 flattenj_one(j)
 flattenj_one(j, compact=F)
 
+}
+\seealso{
+\code{\link{expanddf}}.
 }

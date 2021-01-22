@@ -1,16 +1,16 @@
 #' Single JSON Diff
 #'
-#' @description calculating the difference between two JSON objects.
-#' @param json_new list. The new json list.
-#' @param json_old list. The old json list.
-#' @param sep character. A character/string used to separate full keys in the nesting path.
-#'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-#'     See `flattenj_one()`.
-#' @details This function can find the difference between two JSON/list objects.
-#'     The difference information is categorized into three types: key addition, key removal and value change.
-#'     All these differences can be reflected by '+(add)', and '-(delete)' chng_type in the new JSON.
+#' @description Calculate the difference between two JSON objects.
+#' @param json_new \code{list}. The new JSON list.
+#' @param json_old \code{list}. The old JSON list.
+#' @param sep \code{character}. A character/string used to separate keys in the nesting path.
+#'     Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 #'
-#' @return list. The difference between two JSON objects. The `difference` stores the data frame about the details of each change.
+#' @details This function can find the difference between two JSON/list objects.
+#'     The difference information has three sources: path addition, path removal and value change.
+#'     All differences are reflected by '+(add)', and '-(delete)' chng_type in the result.
+#' @seealso \code{\link{flattenj_one}}
+#' @return \code{list}. The difference between two JSON objects. The `update` stores the data frame about the details of each type of change.
 #'     And the `summary` provides some useful summarization.
 #' @importFrom compareDF compare_df
 #' @export
@@ -21,11 +21,15 @@
 #' j2= list(a=list(x=1,y=3),b=c(3,list(z=5,s=4,t=list(n=8))))
 #' diffj_one(j1, j2)
 #'
-diffj_one=function(json_new, json_old, sep='@'){
-new= flattenj_one(json_new, sep=sep)
-old = flattenj_one(json_old, sep=sep)
+diffj_one = function(json_new, json_old, sep = '@') {
+  new = flattenj_one(json_new, sep = sep) %>% suppressWarnings()
+  old = flattenj_one(json_old, sep = sep) %>% suppressWarnings()
+  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overiding value for the sep variable.')
 
-result = suppressWarnings(compare_df(new, old))
-return(list(update = result$comparison_df, summary = result$change_summary))
+  result = suppressWarnings(compare_df(new, old))
+  return(list(
+    update = result$comparison_df,
+    summary = result$change_summary
+  ))
 
 }
