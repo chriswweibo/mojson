@@ -1,6 +1,6 @@
 #' Multiple JSON Objects Diff
 #'
-#' @description Find the differences between multiple JSON objects including create, delete and update.
+#' @description Find the differences between multiple JSON objects yielded by create, delete and update operations.
 #' @param json_new \code{list}. The new json objects.
 #' @param json_old \code{list}. The old json objects.
 #' @param sep \code{character}. A character/string used to separate keys in the nesting path.

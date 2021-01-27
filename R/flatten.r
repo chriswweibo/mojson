@@ -3,11 +3,11 @@
 #' @param dat \code{list}. Loaded result from a json file.
 #' @param sep \code{character}. A character/string used to separate keys in the nesting path.
 #'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-#'     When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.
+#'     When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.
 #' @param compact logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.
 #' @details The function can flatten multiple json objects into a new data frame. The result contains multiple columns.
-#'     If \code{compact=TRUE}, it returns paths, values and index columns, otherwise level1,level2..., values and index.
-#'     The index column stores the id of each JSON object.
+#'     If \code{compact=TRUE}, it returns \code{paths}, \code{values} and \code{index} columns, otherwise \code{level1}, \code{level2}, ..., \code{values} and \code{index}.
+#'     The \code{index} column stores the id of each JSON object.
 #' @seealso \code{\link{flattenj_one}}.
 #' @return \code{data frame}. The flattened result.
 #' @export
@@ -27,7 +27,7 @@
 
 flattenj <- function(dat, sep = '@', compact = TRUE) {
   i = iter(1:length(dat))
-  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overiding value for the sep variable.')
+  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overriding value for the sep variable.')
 
   message('(1/2) flattening to the compact result...')
   tmp = list.apply(dat, function(x)

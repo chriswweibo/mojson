@@ -1,23 +1,44 @@
 #' JSON description
 #' @description  Give descriptive information about the JSON list, such as the key frequency,  the nesting information and the value distribution.
 #'
-#' @param dat \code{list}. a JSON list.
+#' @param dat \code{list}. Loaded result from a json file.
+#' @param sep \code{character}. A character/string passed to \code{\link{flattenj}}.
+#'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
+#' @details The result contains three parts. `key_summary` presents the description
+#'     of keys, which contains all the keys in the \code{.} column and the respective frequencies.
+#'     `value_summary` presents the description of values, which contains all non-nesting values in the \code{.} column and the respective frequencies.
+#'     And `stream_summary` presents the description of paths' direct upstream keys and downstream paths.
+#'     The \code{up} data frame stores the upstream information about where the current key is nested.
+#'     And the \code{down} data frame stores the downstream information about how the current key branches.
+#'     It means no upstream or downstream if \code{.} value is empty.
 #'
-#' @return \code{list}. The result contains three parts. `key_summary` presents the description
-#'     of keys. `value_summary` presents the description of values. And `stream_summary`
-#'     presents the description of keys' direct upstream keys and downstream keys.
+#'     Note that the mathematical logic of frequency is based on the flattening work,
+#'     which means the occurrence of one key will be considered as repeated if it has multiple downstream keys.
+#'     For example, \code{l=list(a=list(x=1,y=2))}, and the frequency of \code{a} will be 2, because it has two nesting keys.
+#'
+#'     It is recommended to interpret the upstream and downstream information in a relative way rather than an absolute way.
+#'     Returning the absolute value is to preserve the raw information.
+#'     Hence, it is easy to know that 50% of \code{a} goes to \code{x} and \code{y} likewise.
+#'
+#' @return \code{list}. The descriptive result.
+#' @seealso \code{\link{flattenj}}.
 #' @export
 #' @importFrom stringr str_split
 #' @importFrom stringr str_remove_all
 #' @importFrom magrittr %>%
 #'
 #' @examples
-descj = function(dat) {
+#' library(mojson)
+#' j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
+#' j_multi = list(j,j,j)
+#' descj(j_multi)
+#'
+descj = function(dat, sep='@') {
   message('flattening the list...')
-  dat = flattenj(dat)
+  dat = flattenj(dat, sep=sep)
   message('generating key summary...')
   paths = dat$paths # all paths in the records
-  path_keys = paths %>%  sapply(., str_split, '\\.')  # all keys in the path strings
+  path_keys = paths %>%  sapply(., str_split, sep)  # all keys in the path strings
   keys_summary = path_keys %>% unlist() %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ] # keys occurrence
 
   message('generating stream summary...')
@@ -26,26 +47,26 @@ descj = function(dat) {
   names(stream_summary) = keys_summary$.
   for (i in 1:idx) {
     key = keys_summary$.[i]
-    key_pattern = paste('\\.', key, '$', '|', '^', key, '\\.', '|', '\\.', key, '\\.', '|', '^', key, '$', sep = '')
+    key_pattern = paste(sep, key, '$', '|', '^', key, sep, '|', sep, key, sep, '|', '^', key, '$', sep = '')
     extracted = paths[grepl(key_pattern, paths)]
-    father = str_remove_all(extracted, paste('\\.?', key, '.*', sep = '')) %>%
+    up = str_remove_all(extracted, paste('(',sep, ')?', key, '.*', sep = '')) %>%
       sapply(., function(x)
-        str_split(x, '\\.')[[1]] %>% .[length(.)]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
-    children = str_remove_all(extracted, paste('.*', key, '\\.?', sep = '')) %>%
+        str_split(x, sep)[[1]] %>% .[length(.)]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
+    down = str_remove_all(extracted, paste('.*', key, '(',sep, ')?', sep = '')) %>%
       sapply(., function(x)
-        str_split(x, '\\.')[[1]] %>% .[1]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
+        str_split(x, sep)[[1]] %>% .[1]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
 
-    stream_summary[[i]] = list(father = father, children = children)
+    stream_summary[[i]] = list(up = up, down = down)
   }
 
 
   message('generating value summary...')
   unique_innermost = paths %>% sapply(., function(x)
-    str_split(x, '\\.')[[1]] %>% .[length(.)]) %>% unique()
+    str_split(x, sep)[[1]] %>% .[length(.)]) %>% unique()
   value_summary = list()
   for (j in 1:length(unique_innermost)) {
     key = unique_innermost[j]
-    key_pattern = paste('\\.', key, '$', '|', '^', key, '\\.', '|', '\\.', key, '\\.', '|', '^', key, '$', sep = '')
+    key_pattern = paste(sep, key, '$', '|', '^', key, sep, '|', sep, key, sep, '|', '^', key, '$', sep = '')
     value_set = subset(dat, grepl(key_pattern, dat$paths))
     value_summary[[j]] = value_set$values %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
   }

@@ -11,7 +11,7 @@ flattenj(dat, sep = "@", compact = TRUE)
 
 \item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
 Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
-When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.}
+When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.}
 
 \item{compact}{logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
 }
@@ -23,8 +23,8 @@ Transform multiple JSON objects into a flattened data frame.
 }
 \details{
 The function can flatten multiple json objects into a new data frame. The result contains multiple columns.
-If \code{compact=TRUE}, it returns paths, values and index columns, otherwise level1,level2..., values and index.
-The index column stores the id of each JSON object.
+If \code{compact=TRUE}, it returns \code{paths}, \code{values} and \code{index} columns, otherwise \code{level1}, \code{level2}, ..., \code{values} and \code{index}.
+The \code{index} column stores the id of each JSON object.
 }
 \examples{
 library(mojson)

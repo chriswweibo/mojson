@@ -2,7 +2,7 @@
 #' @description Load a JSON file into an R list
 #' @param file \code{character}. A JSON file connection.
 #' @param encoding \code{character}. Encoding method to use. Defaults to UTF-8.
-#' @details This function provides a simple interface to load a json file, which prints some loading information.
+#' @details This function provides a simple interface to load a json file, meanwhile prints some loading information.
 #'     `num_of_loaded_obj` tells the length of the JSON object.
 #'     `duration_seconds` tells the loading duration.
 #'     `speed_objs_sec` tells the loading speed in objects per second.

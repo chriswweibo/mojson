@@ -18,7 +18,7 @@ loadj(file = "R/test.JSON", encoding = "UTF-8")
 Load a JSON file into an R list
 }
 \details{
-This function provides a simple interface to load a json file, which prints some loading information.
+This function provides a simple interface to load a json file, meanwhile prints some loading information.
 \code{num_of_loaded_obj} tells the length of the JSON object.
 \code{duration_seconds} tells the loading duration.
 \code{speed_objs_sec} tells the loading speed in objects per second.

@@ -5,7 +5,7 @@
 #' @param sep \code{character}. Separator for splitting a column. Defaults to @.
 #' @details This function implements the data frame expansion if you need to split one column by the specific characters.
 #'     The new data frame will generate the new columns which are named as 'level' appended by indexing numbers, such as 'level1', 'level2'.
-#'     The maximum of appended numbers indicates the deepest level. Any rows narrower than this number will be padded and corresponding cells will be filled with NAs.
+#'     The maximum of appended numbers indicates the most level. Any rows narrower than the maximum will be padded and corresponding cells will be filled with NAs.
 #'
 #' @return \code{data frame}. The resultant data frame with new columns.
 #' @importFrom tidyr separate
@@ -16,11 +16,11 @@
 #'
 #' @examples
 #' library(mojson)
-#' # use default separator and nesting levels are identical.
+#' # use default separator and levels are identical.
 #' df1 = data.frame(a=c('ab@gmail.com','cd@gmail.com'), b=c('T','F'))
 #' expanddf(df1,'a')
 #'
-#' # change the separator and treat various nesting levels.
+#' # change the separator and treat various levels.
 #' df2 = data.frame(a=c('1-2-0','1-2-0-3','1-2'), b=c('T','F','T'))
 #' expanddf(df2,'a','-')
 #'

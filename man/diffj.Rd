@@ -22,7 +22,7 @@ The value provided should contains the \code{sep} value to specify the nesting i
 \code{list}. Contains the difference result, including create, delete and update information.
 }
 \description{
-Find the differences between multiple JSON objects including create, delete and update.
+Find the differences between multiple JSON objects yielded by create, delete and update operations.
 }
 \seealso{
 \code{\link{diffj_one}}.

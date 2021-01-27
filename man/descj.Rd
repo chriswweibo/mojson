@@ -4,16 +4,43 @@
 \alias{descj}
 \title{JSON description}
 \usage{
-descj(dat)
+descj(dat, sep = "@")
 }
 \arguments{
-\item{dat}{\code{list}. a JSON list.}
+\item{dat}{\code{list}. Loaded result from a json file.}
+
+\item{sep}{\code{character}. A character/string passed to \code{\link{flattenj}}.
+Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.}
 }
 \value{
-\code{list}. The result contains three parts. \code{key_summary} presents the description
-of keys. \code{value_summary} presents the description of values. And \code{stream_summary}
-presents the description of keys' direct upstream keys and downstream keys.
+\code{list}. The descriptive result.
 }
 \description{
 Give descriptive information about the JSON list, such as the key frequency,  the nesting information and the value distribution.
+}
+\details{
+The result contains three parts. \code{key_summary} presents the description
+of keys, which contains all the keys in the \code{.} column and the respective frequencies.
+\code{value_summary} presents the description of values, which contains all non-nesting values in the \code{.} column and the respective frequencies.
+And \code{stream_summary} presents the description of paths' direct upstream keys and downstream paths.
+The \code{up} data frame stores the upstream information about where the current key is nested.
+And the \code{down} data frame stores the downstream information about how the current key branches.
+It means no upstream or downstream if \code{.} value is empty.\preformatted{Note that the mathematical logic of frequency is based on the flattening work,
+which means the occurrence of one key will be considered as repeated if it has multiple downstream keys.
+For example, \code{l=list(a=list(x=1,y=2))}, and the frequency of \code{a} will be 2, because it has two nesting keys.
+
+It is recommended to interpret the upstream and downstream information in a relative way rather than an absolute way.
+Returning the absolute value is to preserve the raw information.
+Hence, it is easy to know that 50\% of \code{a} goes to \code{x} and \code{y} likewise.
+}
+}
+\examples{
+library(mojson)
+j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
+j_multi = list(j,j,j)
+descj(j_multi)
+
+}
+\seealso{
+\code{\link{flattenj}}.
 }
