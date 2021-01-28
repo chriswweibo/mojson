@@ -2,26 +2,42 @@
 % Please edit documentation in R/align.r
 \name{alignj}
 \alias{alignj}
-\title{JSON list alignment}
+\title{JSON lists alignment}
 \usage{
 alignj(json_new, json_old, sep = "@", primary)
 }
 \arguments{
 \item{json_new}{\code{list}. The new JSON list.}
 
-\item{json_old}{\code{list}. The new old list.}
+\item{json_old}{\code{list}. The old JSON list.}
 
-\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
-Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.}
+\item{sep}{\code{character}. A character/string passed to \code{\link{flattenj}}.
+Defaults to @ to avoid the occasional overriding. Not allowed to use some risky characters like . and \.}
 
 \item{primary}{\code{character}. The primary path(keys) for identifying a unique JSON object.
-The value provided should contains the \code{sep} value to specify the nesting information unless it is an outermost key.}
+The value provided should contain the \code{sep} value to specify the nesting information unless it is an outermost key.}
 }
 \value{
-\code{list}. The result list contains the alignment information including objects only in the new JSON,
-objects only in the old JSON, and those in both.
+\code{list}. The result list contains the alignment information including the primary paths only in the new JSON,
+only in the old JSON, and in both.
 }
 \description{
-Align the two JSON lists by specifying the primary key(path), to fulfill
+Align the two JSON lists by specifying the primary path(keys), to fulfill
 the left/inner/right-join style comparison.
+}
+\details{
+The function borrows the idea from the data set operation, whose result contains five data frames:
+\itemize{
+\item{\code{new} contains the flattening result of \code{json_new}.}
+\item{\code{old} contains the flattening result of \code{json_old}.}
+\item{\code{common_primary} contains the primary paths both in \code{json_new} and \code{json_old}.}
+\item{\code{new_primary} contains the primary paths only in \code{json_new}.}
+\item{\code{old_primary} contains the primary paths only in \code{json_old}.}}
+}
+\examples{
+
+library(mojson)
+j1 = list(a=list(x=1, y=2), b=list(x=2, y=2))
+j2 = list(b=list(x=2, y=3), d = list(x=3,y=1))
+alignj(j1, j2, primary = 'x')
 }

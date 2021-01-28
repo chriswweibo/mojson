@@ -10,8 +10,7 @@
 #' @return \code{data frame}. The resultant data frame with new columns.
 #' @importFrom tidyr separate
 #' @importFrom magrittr %>%
-#' @importFrom stringr str_split
-#' @importFrom stringr fixed
+#' @importFrom stringr str_split fixed
 #' @export
 #'
 #' @examples

@@ -12,7 +12,7 @@ diffj(json_new, json_old, sep = "@", primary)
 \item{json_old}{\code{list}. The old json objects.}
 
 \item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
-Defaults to @ to avoid the occasional overriding. Not recommended to use some risky words like . and \.
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.}
 
 \item{primary}{\code{character}. The primary key or path to identify a unique JSON object.
@@ -23,6 +23,18 @@ The value provided should contains the \code{sep} value to specify the nesting i
 }
 \description{
 Find the differences between multiple JSON objects yielded by create, delete and update operations.
+}
+\details{
+This function can find the difference between two JSON/list objects.
+The difference information has three sources: path addition, path removal and value change.
+All differences are reflected by '+(add)', and '-(delete)' chng_type in the result.
+}
+\examples{
+
+library(mojson)
+j1 = list(list(x=1, y=2,b = list(m=1,n=1)), list(x=2, y=2,b = list(m=1,n=1)))
+j2 = list(list(x=2, y=3,b = list(m=1)), list(x=3, y=2,b = list(m=1,n=1)))
+diffj(j1, j2, primary = 'a@x')
 }
 \seealso{
 \code{\link{diffj_one}}.

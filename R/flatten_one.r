@@ -2,7 +2,7 @@
 #' @description Transform a JSON object into a flattened data frame.
 #' @param dat \code{list}. The list from a JSON object.
 #' @param sep \code{character}. A character/string used to separate keys in the nesting path.
-#'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
+#'     Defaults to @ to avoid the occasional overriding. Not allowed to use some risky characters like . and \.
 #'     When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.
 #' @param compact logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.
 #' @details The function can flatten a JSON object whose length is one, into a new data frame.
