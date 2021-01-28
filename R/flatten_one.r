@@ -30,10 +30,14 @@
 #' flattenj_one(j, compact=F)
 #'
 flattenj_one <- function(dat, sep = '@', compact = TRUE) {
-  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overriding value for the sep variable.')
+  warning(
+    'Please make sure the sep character or @ does NOT appear in the JSON key fields.
+    Or you can specify a non-overriding value for the sep variable.'
+  )
 
 
-  len <- sum(rapply(dat, function(x) 1L))
+  len <- sum(rapply(dat, function(x)
+    1L))
   flat <- vector("list", len)
   i <- 0L
   items <- rapply(dat, function(x) {
@@ -42,7 +46,8 @@ flattenj_one <- function(dat, sep = '@', compact = TRUE) {
     TRUE
   })
   if (!is.null(nm <- names(items)))
-    names(flat) <- nm %>% sapply(., gsub, pattern = '.', replacement = sep, fixed = T)
+    names(flat) <- nm %>%
+    sapply(., gsub, pattern = '.', replacement = sep, fixed = T)
 
   expanded <- list(root = 0)
   for (i in 1:length(flat))

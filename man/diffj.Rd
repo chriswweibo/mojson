@@ -34,7 +34,7 @@ All differences are reflected by '+(add)', and '-(delete)' chng_type in the resu
 library(mojson)
 j1 = list(list(x=1, y=2,b = list(m=1,n=1)), list(x=2, y=2,b = list(m=1,n=1)))
 j2 = list(list(x=2, y=3,b = list(m=1)), list(x=3, y=2,b = list(m=1,n=1)))
-diffj(j1, j2, primary = 'a@x')
+diffj(j1, j2, primary = 'x')
 }
 \seealso{
 \code{\link{diffj_one}}.

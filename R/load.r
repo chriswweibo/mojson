@@ -20,16 +20,17 @@
 #' writeLines(RJSONIO::toJSON(j),tf)
 #' loadj(tf)
 
-loadj = function(file = 'R/test.JSON', encoding = 'UTF-8') {
-  tic = Sys.time()
-  dat = fromJSON(file, encoding = encoding)
-  toc = Sys.time()
-  info = list()
-  info$num_of_loaded_obj = length(dat)
-  info$duration_seconds = as.numeric(toc - tic)
-  info$speed_objs_sec = info$num_of_loaded_obj / info$duration
-  each_len = sapply(dat, length)
-  info$obj_len_summary = summary(each_len)
+loadj <- function(file = "R/test.JSON", encoding = "UTF-8")
+{
+  tic <- Sys.time()
+  dat <- fromJSON(file, encoding = encoding)
+  toc <- Sys.time()
+  info <- list()
+  info$num_of_loaded_obj <- length(dat)
+  info$duration_seconds <- as.numeric(toc - tic)
+  info$speed_objs_sec <- info$num_of_loaded_obj/info$duration
+  each_len <- sapply(dat, length)
+  info$obj_len_summary <- summary(each_len)
   print(info)
   return(dat)
 }

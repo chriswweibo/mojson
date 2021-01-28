@@ -24,26 +24,23 @@
 #' flattenj(j_multi, compact=F)
 #'
 
-flattenj <- function(dat, sep = '@', compact = TRUE) {
+flattenj <- function(dat, sep = "@", compact = TRUE) {
   i = iter(1:length(dat))
-  warning('Please make sure the sep character or @ does NOT appear in the JSON key fields. Or you can specify a non-overriding value for the sep variable.')
+  warning("Please make sure the sep character or @ does NOT appear in the JSON key fields.
+          Or you can specify a non-overriding value for the sep variable.")
 
-  message('(1/2) flattening to the compact result...')
-  tmp = list.apply(dat, function(x)
-    flattenj_one(x, sep = sep, compact = TRUE) %>% suppressWarnings() %>% cbind(., index = nextElem(i))) %>% list.rbind()
+  message("(1/2) flattening to the compact result...")
+  tmp = list.apply(dat, function(x) flattenj_one(x, sep = sep, compact = TRUE) %>%
+                     suppressWarnings() %>%
+                     cbind(., index = nextElem(i))) %>%
+    list.rbind()
 
-  # if (!is.null(row.names(tmp))){
-  #   tmp$index = row.names(tmp)
-  # }
-  # else{
-  #
-  # }
+  # if (!is.null(row.names(tmp))){ tmp$index = row.names(tmp) } else{ }
   if (compact) {
-    message('(2/2) return the compact result...')
+    message("(2/2) return the compact result...")
     return(tmp)
-  }
-  else {
-    message('(2/2) return the expanded result...')
-    return(expanddf(tmp, column = 'paths', sep = sep))
+  } else {
+    message("(2/2) return the expanded result...")
+    return(expanddf(tmp, column = "paths", sep = sep))
   }
 }

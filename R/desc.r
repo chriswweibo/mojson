@@ -22,7 +22,8 @@
 #' @return \code{list}. The descriptive result.
 #' @seealso \code{\link{flattenj}}.
 #' @export
-#' @importFrom stringr str_split str_remove_all
+#' @importFrom stringr str_split str_remove_all str_replace_all
+
 #' @importFrom magrittr %>%
 #'
 #' @examples
@@ -31,49 +32,62 @@
 #' j_multi = list(j,j,j)
 #' descj(j_multi)
 #'
-descj = function(dat, sep='@') {
-  message('flattening the list...')
-  dat = flattenj(dat, sep=sep)
-  message('generating key summary...')
-  paths = dat$paths # all paths in the records
-  path_keys = paths %>%  sapply(., str_split, sep)  # all keys in the path strings
-  keys_summary = path_keys %>% unlist() %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ] # keys occurrence
+descj <- function(dat, sep = "@")
+{
+  message("flattening the list...")
+  dat <- flattenj(dat, sep = sep)
+  message("generating key summary...")
+  paths <- dat$paths  # all paths in the records
+  path_keys <- paths %>% sapply(., str_split, sep)  # all keys in the path strings
+  keys_summary <- path_keys %>% unlist() %>% table() %>% as.data.frame() %>%
+    .[order(-.$Freq), ]  # keys occurrence
 
-  message('generating stream summary...')
-  idx = nrow(keys_summary)
-  stream_summary = as.list(1:idx)
-  names(stream_summary) = keys_summary$.
-  for (i in 1:idx) {
-    key = keys_summary$.[i]
-    key_pattern = paste(sep, key, '$', '|', '^', key, sep, '|', sep, key, sep, '|', '^', key, '$', sep = '')
-    extracted = paths[grepl(key_pattern, paths)]
-    up = str_remove_all(extracted, paste('(',sep, ')?', key, '.*', sep = '')) %>%
-      sapply(., function(x)
-        str_split(x, sep)[[1]] %>% .[length(.)]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
-    down = str_remove_all(extracted, paste('.*', key, '(',sep, ')?', sep = '')) %>%
-      sapply(., function(x)
-        str_split(x, sep)[[1]] %>% .[1]) %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
+  message("generating stream summary...")
+  idx <- nrow(keys_summary)
+  stream_summary <- as.list(1:idx)
+  names(stream_summary) <- keys_summary$.
+  for (i in 1:idx)
+  {
+    key <- keys_summary$.[i] %>%
+      str_replace_all(fixed("["), "\\[") %>%
+      str_replace_all(fixed("]"), "\\]") %>%
+      str_replace_all(fixed("."), "\\.")
+    key_pattern <- paste(sep, key, "$", "|", "^", key, sep, "|", sep,
+                         key, sep, "|", "^", key, "$", sep = "")
+    extracted <- paths[grepl(key_pattern, paths)]
+    up <- str_remove_all(extracted, paste("(", sep, ")?", key, ".*", sep = "")) %>%
+      sapply(., function(x) str_split(x, sep)[[1]] %>% .[length(.)]) %>%
+      table() %>%
+      as.data.frame() %>%
+      .[order(-.$Freq), ]
+    down <- str_remove_all(extracted, paste(".*", key, "(", sep, ")?", sep = "")) %>%
+      sapply(., function(x) str_split(x, sep)[[1]] %>% .[1]) %>%
+      table() %>%
+      as.data.frame() %>%
+      .[order(-.$Freq), ]
 
-    stream_summary[[i]] = list(up = up, down = down)
+    stream_summary[[i]] <- list(up = up, down = down)
   }
 
 
-  message('generating value summary...')
-  unique_innermost = paths %>% sapply(., function(x)
-    str_split(x, sep)[[1]] %>% .[length(.)]) %>% unique()
-  value_summary = list()
-  for (j in 1:length(unique_innermost)) {
-    key = unique_innermost[j]
-    key_pattern = paste(sep, key, '$', '|', '^', key, sep, '|', sep, key, sep, '|', '^', key, '$', sep = '')
-    value_set = subset(dat, grepl(key_pattern, dat$paths))
-    value_summary[[j]] = value_set$values %>% table() %>% as.data.frame() %>% .[order(-.$Freq), ]
+  message("generating value summary...")
+  unique_innermost <- paths %>%
+    sapply(., function(x) str_split(x, sep)[[1]] %>% .[length(.)]) %>%
+    unique()
+  value_summary <- list()
+  for (j in 1:length(unique_innermost))
+  {
+    key <- unique_innermost[j]
+    key_pattern <- paste(sep, key, "$", "|", "^", key, sep, "|", sep,
+                         key, sep, "|", "^", key, "$", sep = "")
+    value_set <- subset(dat, grepl(key_pattern, dat$paths))
+    value_summary[[j]] <- value_set$values %>%
+      table() %>%
+      as.data.frame() %>%
+      .[order(-.$Freq), ]
   }
-  names(value_summary) = unique_innermost
-  return(
-    list(
-      keys_summary = keys_summary,
-      stream_summary = stream_summary,
-      value_summary = value_summary
-    )
-  )
+  names(value_summary) <- unique_innermost
+  return(list(keys_summary = keys_summary,
+              stream_summary = stream_summary,
+              value_summary = value_summary))
 }

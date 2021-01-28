@@ -1,5 +1,5 @@
 Package: mojson
-Title: An absolute data frame style flattening and description for JSON.
+Title: An serialization style flattening and description for JSON.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Bo",
@@ -7,9 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ckris@163.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: mojson supports json flattening in a long data frame way, where the nesting keys will be stored as the absolute 'path'. It also
-   provides an easy way to summarize the basic description of a JSON object. The idea of mojson is to transform a JSON object in a 
-   absolute serialization way 
+Description: mojson supports json flattening in a long data frame way, where the nesting keys will be stored in the absolute 'path'. It also
+   provides an easy way to summarize the basic description of a JSON list. The idea of mojson is to transform a JSON object in an 
+   absolute serialization way, which means the early key-value pairs will appear in the heading rows of the data frame. 
+   mojson also provides an alternative way of comparing two different JSON lists, returning the left/inner/right-join style results.
 License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true
@@ -21,4 +22,5 @@ Imports:
     magrittr,
     tidyr,
     iterators,
-    stringr
+    stringr,
+    compareDF

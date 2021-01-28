@@ -28,7 +28,7 @@
 #' j1 = list(a=list(x=1, y=2), b=list(x=2, y=2))
 #' j2 = list(b=list(x=2, y=3), d = list(x=3,y=1))
 #' alignj(j1, j2, primary = 'x')
-alignj = function(json_new, json_old, sep = '@', primary) {
+alignj = function(json_new, json_old, sep = "@", primary) {
   new = flattenj(json_new)
   old = flattenj(json_old)
 
@@ -37,14 +37,10 @@ alignj = function(json_new, json_old, sep = '@', primary) {
   common_part = intersect(primary_new, primary_old)
   only_new = setdiff(primary_new, primary_old)
   only_old = setdiff(primary_old, primary_new)
-  return(
-    list(
-      new = new ,
-      old = old,
-      common_primary = common_part,
-      new_primary = only_new,
-      old_primary = only_old
-    )
-  )
+  return(list(new = new,
+              old = old,
+              common_primary = common_part,
+              new_primary = only_new,
+              old_primary = only_old))
 
 }

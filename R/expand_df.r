@@ -23,9 +23,13 @@
 #' df2 = data.frame(a=c('1-2-0','1-2-0-3','1-2'), b=c('T','F','T'))
 #' expanddf(df2,'a','-')
 #'
-expanddf = function(df, column, sep = '@') {
-  max_level = df[column] %>% sapply(., str_split, sep) %>% sapply(., length) %>% max()
-  levels = paste('level', 1:max_level, sep = '')
-  result = df %>% separate(column, levels, sep)
+expanddf = function(df, column, sep = "@") {
+  max_level = df[column] %>%
+    sapply(., str_split, sep) %>%
+    sapply(., length) %>%
+    max()
+  levels = paste("level", 1:max_level, sep = "")
+  result = df %>%
+    separate(column, levels, sep)
   return(result)
 }

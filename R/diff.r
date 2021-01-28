@@ -13,6 +13,7 @@
 #'     All differences are reflected by '+(add)', and '-(delete)' chng_type in the result.
 #' @seealso \code{\link{diffj_one}}.
 #' @return \code{list}. Contains the difference result, including create, delete and update information.
+#' @importFrom compareDF compare_df
 #' @export
 #'
 #' @examples
@@ -20,37 +21,35 @@
 #' library(mojson)
 #' j1 = list(list(x=1, y=2,b = list(m=1,n=1)), list(x=2, y=2,b = list(m=1,n=1)))
 #' j2 = list(list(x=2, y=3,b = list(m=1)), list(x=3, y=2,b = list(m=1,n=1)))
-#' diffj(j1, j2, primary = 'a@x')
+#' diffj(j1, j2, primary = 'x')
 
-diffj = function(json_new, json_old, sep = '@', primary) {
-  align_result = alignj(json_new, json_old, primary, sep = sep)
-  new = align_result$new
-  old = align_result$old
-  only_new = align_result$new_primary
-  only_old = align_result$old_primary
-  common = align_result$common_primary
+diffj <- function(json_new, json_old, sep = "@", primary)
+{
+  align_result <- alignj(json_new, json_old, primary, sep = sep)
+  new <- align_result$new
+  old <- align_result$old
+  only_new <- align_result$new_primary
+  only_old <- align_result$old_primary
+  common <- align_result$common_primary
 
-  new_index = subset(new, paths == primary & values == only_new)$index
-  new_ = subset(new, index == new_index)
+  new_index <- subset(new, paths == primary & values == only_new)$index
+  new_ <- subset(new, index == new_index)
 
-  old_index = subset(old, paths == primary & values == only_old)$index
-  old_ = subset(old, index == old_index)
+  old_index <- subset(old, paths == primary & values == only_old)$index
+  old_ <- subset(old, index == old_index)
 
-  new_common_index = subset(new, paths == primary & values == common)$index
-  new_common = subset(new, index == new_common_index)
+  new_common_index <- subset(new, paths == primary & values == common)$index
+  new_common <- subset(new, index == new_common_index)
 
-  old_common_index = subset(old, paths == primary & values == common)$index
-  old_common = subset(old, index == old_common_index)
+  old_common_index <- subset(old, paths == primary & values == common)$index
+  old_common <- subset(old, index == old_common_index)
 
-  common_result = suppressWarnings(compare_df(new_common[,-3], old_common[,-3]))
-  return(
-    list(
-      create = new_,
-      delete = old_,
-      change = common_result$comparison_df,
-      change_summary = common_result$change_summary
-    )
-  )
+  common_result <- compare_df(new_common[, -3], old_common[, -3]) %>%
+    suppressWarnings()
+  return(list(create = new_,
+              delete = old_,
+              change = common_result$comparison_df,
+              change_summary = common_result$change_summary))
 
 
 }
