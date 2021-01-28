@@ -2,11 +2,13 @@
 #' @description Load a JSON file into an R list
 #' @param file \code{character}. A JSON file connection.
 #' @param encoding \code{character}. Encoding method to use. Defaults to UTF-8.
-#' @details This function provides a simple interface to load a json file, meanwhile prints some loading information.
-#'     `num_of_loaded_obj` tells the length of the JSON object.
-#'     `duration_seconds` tells the loading duration.
-#'     `speed_objs_sec` tells the loading speed in objects per second.
-#'     `obj_len_summary` gives the length summary of each JSON object.
+#' @details This function provides a simple interface to load a JSON file, meanwhile prints some loading information.
+#'     \itemize{
+#'     \item{`num_of_loaded_obj` tells the length of the JSON object.}
+#'     \item{`duration_seconds` tells the loading duration.}
+#'     \item{`speed_objs_sec` tells the loading speed in objects per second.}
+#'     \item{`obj_len_summary` gives the length summary of each JSON object.}
+#'     }
 #' @return \code{list}. The loading result.
 #' @export
 #' @importFrom RJSONIO fromJSON

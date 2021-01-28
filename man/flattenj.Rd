@@ -9,8 +9,8 @@ flattenj(dat, sep = "@", compact = TRUE)
 \arguments{
 \item{dat}{\code{list}. Loaded result from a json file.}
 
-\item{sep}{\code{character}. A character/string used to separate keys in the nesting path.
-Defaults to @ to avoid the occasional overriding. Not allowed to use some risky words like . and \.
+\item{sep}{\code{character}. A character/string passed to \code{\link{flattenj_one}}.
+Defaults to @ to avoid the occasional overriding. Not allowed to use some risky characters like . and \.
 When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.}
 
 \item{compact}{logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.}
@@ -22,14 +22,15 @@ When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, un
 Transform multiple JSON objects into a flattened data frame.
 }
 \details{
-The function can flatten multiple json objects into a new data frame. The result contains multiple columns.
+The function can flatten multiple JSON objects into a new data frame. The result contains multiple columns.
 If \code{compact=TRUE}, it returns \code{paths}, \code{values} and \code{index} columns, otherwise \code{level1}, \code{level2}, ..., \code{values} and \code{index}.
 The \code{index} column stores the id of each JSON object.
+Great credits to the author of \pkg{rlist}, \href{https://github.com/renkun-ken/rlist/blob/master/R/list.flatten.R}{Kun Ren}.
 }
 \examples{
 library(mojson)
-j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
-j_multi = list(j,j,j)
+j = list(a=list(x=1, y=2), b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
+j_multi = list(j, j, j)
 flattenj(j_multi)
 flattenj(j_multi, compact=F)
 
