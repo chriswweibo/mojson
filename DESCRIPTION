@@ -1,5 +1,5 @@
 Package: mojson
-Title: An serialization style flattening and description for JSON.
+Title: An serialization-style flattening and description for JSON.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Bo",

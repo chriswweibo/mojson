@@ -3,7 +3,6 @@
 export(alignj)
 export(descj)
 export(diffj)
-export(diffj_one)
 export(expanddf)
 export(flattenj)
 export(flattenj_one)
