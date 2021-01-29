@@ -4,7 +4,7 @@
 \alias{loadj}
 \title{JSON load}
 \usage{
-loadj(file = "R/test.JSON", encoding = "UTF-8")
+loadj(file, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{\code{character}. A JSON file connection.}

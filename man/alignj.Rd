@@ -12,7 +12,7 @@ alignj(json_new, json_old, sep = "@", primary)
 \item{json_old}{\code{list}. The old JSON list.}
 
 \item{sep}{\code{character}. A character/string passed to \code{\link{flattenj}}.
-Defaults to @ to avoid the occasional overriding. Not allowed to use some risky characters like . and \.}
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.}
 
 \item{primary}{\code{character}. The primary path(keys) for identifying a unique JSON object.
 The value provided should contain the \code{sep} value to specify the nesting information unless it is an outermost key.}
@@ -22,22 +22,24 @@ The value provided should contain the \code{sep} value to specify the nesting in
 only in the old JSON, and in both.
 }
 \description{
-Align the two JSON lists by specifying the primary path(keys), to fulfill
+Align the two JSON lists by specifying the primary path(keys), to support
 the left/inner/right-join style comparison.
 }
 \details{
 The function borrows the idea from the data set operation, whose result contains five data frames:
 \itemize{
-\item{\code{new} contains the flattening result of \code{json_new}.}
-\item{\code{old} contains the flattening result of \code{json_old}.}
-\item{\code{common_primary} contains the primary paths both in \code{json_new} and \code{json_old}.}
-\item{\code{new_primary} contains the primary paths only in \code{json_new}.}
-\item{\code{old_primary} contains the primary paths only in \code{json_old}.}}
+\item{\code{new}, contains the flattening result of \code{json_new}.}
+\item{\code{old}, contains the flattening result of \code{json_old}.}
+\item{\code{common_primary}, contains the primary paths both in \code{json_new} and \code{json_old}.}
+\item{\code{new_primary}, contains the primary paths only in \code{json_new}.}
+\item{\code{old_primary}, contains the primary paths only in \code{json_old}.}}
 }
 \examples{
 
 library(mojson)
-j1 = list(a=list(x=1, y=2), b=list(x=2, y=2))
-j2 = list(b=list(x=2, y=3), d = list(x=3,y=1))
-alignj(j1, j2, primary = 'x')
+j1 <- list(list(id = list(x = 1 ,y = 2), gender = 'M'),
+           list(id = list(x = 2 ,y = 2), gender = 'M'))
+j2 <- list(list(id = list(x = 2 ,y = 2), gender = 'F'),
+           list(id = list(x = 3 ,y = 2), gender = 'F'))
+alignj(j1, j2, primary = 'id@x')
 }

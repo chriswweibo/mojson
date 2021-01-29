@@ -20,7 +20,7 @@
 #' writeLines(RJSONIO::toJSON(j),tf)
 #' loadj(tf)
 
-loadj <- function(file = "R/test.JSON", encoding = "UTF-8")
+loadj <- function(file, encoding = "UTF-8")
 {
   tic <- Sys.time()
   dat <- fromJSON(file, encoding = encoding)

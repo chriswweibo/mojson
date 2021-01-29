@@ -4,14 +4,14 @@
 \alias{expanddf}
 \title{Data frame expand}
 \usage{
-expanddf(df, column, sep = "@")
+expanddf(df, column, sep)
 }
 \arguments{
-\item{df}{\code{data frame}.}
+\item{df}{\code{data frame}. The input to be expanded.}
 
 \item{column}{\code{character}. The column to be splitted.}
 
-\item{sep}{\code{character}. Separator for splitting a column. Defaults to @.}
+\item{sep}{\code{character}. Separator for splitting a column.}
 }
 \value{
 \code{data frame}. The resultant data frame with new columns.
@@ -21,17 +21,18 @@ Expand a data frame by splitting one column
 }
 \details{
 This function implements the data frame expansion if you need to split one column by the specific characters.
-The new data frame will generate the new columns which are named as 'level' appended by indexing numbers, such as 'level1', 'level2'.
-The maximum of appended numbers indicates the most level. Any rows narrower than the maximum will be padded and corresponding cells will be filled with NAs.
+The new data frame will generate the new columns which are named as 'level' appended by position-indexing numbers, such as 'level1', 'level2'.
+The maximum of appended numbers indicates the most splitting pieces for one cell.
+If the splitting results are fewer than the maximum, the row will be padded and corresponding cells will be filled with NAs.
 }
 \examples{
 library(mojson)
-# use default separator and levels are identical.
-df1 = data.frame(a=c('ab@gmail.com','cd@gmail.com'), b=c('T','F'))
-expanddf(df1,'a')
+# levels are identical.
+df1 <- data.frame(a = c('ab@gmail.com', 'cd@gmail.com'), b = c('T','F'))
+expanddf(df1, 'a', '@')
 
 # change the separator and treat various levels.
-df2 = data.frame(a=c('1-2-0','1-2-0-3','1-2'), b=c('T','F','T'))
-expanddf(df2,'a','-')
+df2 <- data.frame(a = c('1-2-0', '1-2-0-3', '1-2'), b = c('T', 'F', 'T'))
+expanddf(df2, 'a', '-')
 
 }

@@ -10,34 +10,35 @@ descj(dat, sep = "@")
 \item{dat}{\code{list}. Loaded result from a JSON file.}
 
 \item{sep}{\code{character}. A character/string passed to \code{\link{flattenj}}.
-Defaults to @ to avoid the occasional overriding. Not allowed to use some risky characters like . and \.}
+Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.}
 }
 \value{
 \code{list}. The descriptive result.
 }
 \description{
-Give descriptive information about the JSON list, such as the key frequency,  the nesting information and the value distribution.
+Give descriptive information about the JSON list, such as the key frequency, the nesting information and the value distribution.
 }
 \details{
 The result contains three parts:
 \itemize{
-\item{\code{key_summary} presents the description of keys, which contains all the keys in the \code{.} column and the respective frequencies.}
-\item{\code{value_summary} presents the description of values, which contains all non-nesting values in the \code{.} column and the respective frequencies.}
-\item{\code{stream_summary} presents the description of paths' direct upstream keys and downstream paths.
+\item{\code{key_summary}, presents the description of keys, which contains all the keys and the respective frequencies.}
+\item{\code{value_summary}, presents the description of values, which contains all atomic values and the respective frequencies.}
+\item{\code{stream_summary}, presents the description of paths' direct upstream keys and downstream keys.
 The \code{up} data frame stores the upstream information about where the current key is nested.
 And the \code{down} data frame stores the downstream information about how the current key branches.
 It means no upstream or downstream if \code{.} value is empty.}
 }
 \bold{Note that the mathematical logic of frequency is based on the flattening work, which means the occurrence of one key will be considered as repeated if it has multiple downstream keys}.
-For example, \code{l=list(a=list(x=1,y=2))}, and the frequency of \code{a} will be 2, because it has two nesting keys.
+For example, \code{list(list(x = list(m = 1, n = 2), y = 2))}, and the frequency of \code{x} will be 2, because it has two nesting keys.
 It is recommended to interpret the upstream and downstream information in a relative way rather than an absolute way.
-Returning the absolute value is to preserve the raw information.
-Hence, it is easy to know that 50\% of \code{a} goes to \code{x} and \code{y} likewise.
+Returning the absolute frequency is to preserve the raw information.
+Hence, it is easy to know that \code{x} will equally branches to \code{m} and \code{n}.
 }
 \examples{
 library(mojson)
-j = list(a=list(x=1,y=2),b=c(3,4,list(z=5,s=6,t=list(m=7,n=8))))
-j_multi = list(j,j,j)
+j <- list(a = list(x = 1,y = 2),
+          b = c(3, 4, list(z = 5, s = 6, t = list(m = 7, n = 8))))
+j_multi <- list(j, j, j)
 descj(j_multi)
 
 }
