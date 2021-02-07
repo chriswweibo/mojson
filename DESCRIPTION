@@ -1,12 +1,12 @@
 Package: mojson
-Title: An Serialization-Style Flattening and Description for JSON
+Title: A Serialization-Style Flattening and Description for JSON
 Version: 0.1
 Author: Bo Wei <ckris@163.com>
 Maintainer: Bo Wei <ckris@163.com>
-Description: Support json flattening in a long data frame way, where the nesting keys will be stored in the absolute 'path'. It also
-   provides an easy way to summarize the basic description of a JSON list. The idea of mojson is to transform a JSON object in an 
+Description: Support JSON flattening in a long data frame way, where the nesting keys will be stored in the absolute 'path'. It also
+   provides an easy way to summarize the basic description of a JSON list. The idea of 'mojson' is to transform a JSON object in an 
    absolute serialization way, which means the early key-value pairs will appear in the heading rows of the resultant data frame. 
-   mojson also provides an alternative way of comparing two different JSON lists, returning the left/inner/right-join style results.
+   'mojson' also provides an alternative way of comparing two different JSON lists, returning the left/inner/right-join style results.
 License: MIT + file LICENSE
 URL: https://github.com/chriswweibo/mojson
 BugReports: https://github.com/chriswweibo/mojson/issues

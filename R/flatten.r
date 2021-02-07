@@ -1,6 +1,6 @@
 #' JSON flatten
 #' @description Transform multiple JSON objects into a flattened data frame.
-#' @param dat \code{list}. Loaded result from a json file.
+#' @param dat \code{list}. Loaded result from a JSON file.
 #' @param sep \code{character}. A character/string passed to \code{\link{flattenj_one}}.
 #'     Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 #'     When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.

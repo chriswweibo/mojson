@@ -1,8 +1,8 @@
 #' Multiple JSON Objects Diff
 #'
 #' @description Find the difference between multiple JSON objects yielded by create, delete and update operations.
-#' @param json_new \code{list}. The new json objects.
-#' @param json_old \code{list}. The old json objects.
+#' @param json_new \code{list}. The new JSON objects.
+#' @param json_old \code{list}. The old JSON objects.
 #' @param sep \code{character}. A character/string used to separate keys in the nesting path.
 #'     Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 #'     When \code{compact = FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the keys.
