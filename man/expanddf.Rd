@@ -2,7 +2,7 @@
 % Please edit documentation in R/expand_df.r
 \name{expanddf}
 \alias{expanddf}
-\title{Data frame expand}
+\title{Data Frame Expand}
 \usage{
 expanddf(df, column, sep)
 }
@@ -21,18 +21,20 @@ Expand a data frame by splitting one column
 }
 \details{
 This function implements the data frame expansion if you need to split one column by the specific characters.
-The new data frame will generate the new columns which are named as 'level' appended by position-indexing numbers, such as 'level1', 'level2'.
+The new data frame will generate the new columns named as 'level' appended by position-indexing numbers, such as 'level1', 'level2'.
 The maximum of appended numbers indicates the most splitting pieces for one cell.
-If the splitting results are fewer than the maximum, the row will be padded and corresponding cells will be filled with NAs.
+If the splitting results of one cell are fewer than the maximum, the row will be padded and corresponding cells will be filled with NAs.
 }
 \examples{
 library(mojson)
 # levels are identical.
-df1 <- data.frame(a = c('ab@gmail.com', 'cd@gmail.com'), b = c('T','F'))
+df1 <- data.frame(a = c('ab@gmail.com', 'cd@gmail.com'),
+                  b = c(TRUE, FALSE))
 expanddf(df1, 'a', '@')
 
 # change the separator and treat various levels.
-df2 <- data.frame(a = c('1-2-0', '1-2-0-3', '1-2'), b = c('T', 'F', 'T'))
+df2 <- data.frame(a = c('1-2-0', '1-2-0-3', '1-2'),
+                  b = c(TRUE, FALSE, TRUE))
 expanddf(df2, 'a', '-')
 
 }

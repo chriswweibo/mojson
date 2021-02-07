@@ -2,7 +2,7 @@
 % Please edit documentation in R/load.r
 \name{loadj}
 \alias{loadj}
-\title{JSON load}
+\title{JSON Load}
 \usage{
 loadj(file, encoding = "UTF-8")
 }
@@ -28,8 +28,8 @@ This function provides a simple interface to load a JSON file, meanwhile prints 
 }
 \examples{
 library(mojson)
-j =list(a=list(1,2),b=3)
-tf=tempfile()
-writeLines(RJSONIO::toJSON(j),tf)
+j <- list(a = list(1, 2), b = 3)
+tf <- tempfile()
+writeLines(RJSONIO::toJSON(j), tf)
 loadj(tf)
 }

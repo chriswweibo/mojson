@@ -1,4 +1,4 @@
-#' JSON lists alignment
+#' JSON Lists Alignment
 #'
 #' @description Align the two JSON lists by specifying the primary path(keys), to support
 #'     the left/inner/right-join style comparison.
@@ -10,9 +10,9 @@
 #' @param primary \code{character}. The primary path(keys) for identifying a unique JSON object.
 #'     The value provided should contain the \code{sep} value to specify the nesting information unless it is an outermost key.
 #'
-#' @return \code{list}. The result list contains the alignment information including the primary paths only in the new JSON,
+#' @return \code{list}. The result list contains the alignment information of three types: the primary paths only in the new JSON,
 #'     only in the old JSON, and in both.
-#' @details The function borrows the idea from the data set operation, whose result contains five data frames:
+#' @details The function borrows the idea from the data set operation, and the result contains:
 #'     \itemize{
 #'     \item{`new`, contains the flattening result of `json_new`.}
 #'     \item{`old`, contains the flattening result of `json_old`.}

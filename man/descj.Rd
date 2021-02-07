@@ -2,7 +2,7 @@
 % Please edit documentation in R/desc.r
 \name{descj}
 \alias{descj}
-\title{JSON description}
+\title{JSON Description}
 \usage{
 descj(dat, sep = "@")
 }
@@ -16,13 +16,13 @@ Defaults to @ to avoid the occasional overriding. Not recommended to use some ri
 \code{list}. The descriptive result.
 }
 \description{
-Give descriptive information about the JSON list, such as the key frequency, the nesting information and the value distribution.
+Provide descriptive information about the JSON list, such as the key frequency, the nesting information and the value distribution.
 }
 \details{
 The result contains three parts:
 \itemize{
-\item{\code{key_summary}, presents the description of keys, which contains all the keys and the respective frequencies.}
-\item{\code{value_summary}, presents the description of values, which contains all atomic values and the respective frequencies.}
+\item{\code{key_summary}, presents the description of keys, which contains all the keys and their respective frequencies.}
+\item{\code{value_summary}, presents the description of values, which contains all atomic values and their respective frequencies.}
 \item{\code{stream_summary}, presents the description of paths' direct upstream keys and downstream keys.
 The \code{up} data frame stores the upstream information about where the current key is nested.
 And the \code{down} data frame stores the downstream information about how the current key branches.
@@ -36,10 +36,11 @@ Hence, it is easy to know that \code{x} will equally branches to \code{m} and \c
 }
 \examples{
 library(mojson)
-j <- list(a = list(x = 1,y = 2),
+j <- list(a = list(x = 1, y = 2),
           b = c(3, 4, list(z = 5, s = 6, t = list(m = 7, n = 8))))
 j_multi <- list(j, j, j)
-descj(j_multi)
+desc <- descj(j_multi)
+desc$keys_summary
 
 }
 \seealso{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/flatten_one.r
 \name{flattenj_one}
 \alias{flattenj_one}
-\title{Single JSON object flatten}
+\title{Single JSON Object Flatten}
 \usage{
 flattenj_one(dat, sep = "@", compact = TRUE)
 }
@@ -22,7 +22,7 @@ When \code{compact = FALSE}, it is unnecessary to assign \code{sep} explicitly, 
 Transform a JSON object into a flattened data frame in a serialization way.
 }
 \details{
-The function can flatten a single JSON object into a data frame which has two different schemas according to the \code{compact} value.
+The function flattens a single JSON object into a data frame with two different schemas according to the \code{compact} value.
 \itemize{
 \item{For \code{compact = TRUE}, the data frame contains two columns. One is \code{paths} which stores the absolute path of each record.
 And the other is \code{values} which stores the corresponding values of each path.}
@@ -30,7 +30,7 @@ And the other is \code{values} which stores the corresponding values of each pat
 }
 \bold{It actually applies the serialization way for flattening, which means the early values correspondingly appear in the heading rows of the data frame.}
 And if the value is a list object in the original data or a non-named list/vector in the R environment,
-the path will correspondingly be appended with an integer to specify each list element.
+the path will be correspondingly appended with an integer to specify each list element.
 For example, in the raw JSON file, "\{'a':[1, 2, 3]\}" will be \code{data.frame(paths = c('a1', 'a2', 'a3'), values = c(1, 2, 3))}.
 Great credits to the answer of \href{https://stackoverflow.com/questions/8139677/how-to-flatten-a-list-to-a-list-without-coercion/8139959#8139959}{Tommy}.
 }

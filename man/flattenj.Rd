@@ -2,12 +2,12 @@
 % Please edit documentation in R/flatten.r
 \name{flattenj}
 \alias{flattenj}
-\title{JSON flatten}
+\title{JSON Flatten}
 \usage{
 flattenj(dat, sep = "@", compact = TRUE)
 }
 \arguments{
-\item{dat}{\code{list}. Loaded result from a json file.}
+\item{dat}{\code{list}. Loaded result from a JSON file.}
 
 \item{sep}{\code{character}. A character/string passed to \code{\link{flattenj_one}}.
 Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
@@ -22,15 +22,15 @@ When \code{compact=FALSE}, it is unnecessary to assign \code{sep} explicitly, un
 Transform multiple JSON objects into a flattened data frame.
 }
 \details{
-The function can flatten multiple JSON objects into a new data frame. The result contains multiple columns.
+The function flattens multiple JSON objects into a new data frame. The result contains multiple columns.
 If \code{compact=TRUE}, it returns \code{paths}, \code{values} and \code{index} columns, otherwise \code{level1}, \code{level2}, ..., \code{values} and \code{index}.
 The \code{index} column stores the id of each JSON object.
 }
 \examples{
 library(mojson)
-j = list(a = list(x = 1, y = 2),
-         b = c(3, 4, list(z = 5, s = 6,t = list(m= 7, n = 8))))
-j_multi = list(j, j, j)
+j <- list(a = list(x = 1, y = 2),
+         b = c(3, 4, list(z = 5, s = 6, t = list(m = 7, n = 8))))
+j_multi <- list(j, j, j)
 flattenj(j_multi)
 flattenj(j_multi, compact=FALSE)
 

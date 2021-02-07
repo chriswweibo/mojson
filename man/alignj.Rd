@@ -2,7 +2,7 @@
 % Please edit documentation in R/align.r
 \name{alignj}
 \alias{alignj}
-\title{JSON lists alignment}
+\title{JSON Lists Alignment}
 \usage{
 alignj(json_new, json_old, sep = "@", primary)
 }
@@ -18,7 +18,7 @@ Defaults to @ to avoid the occasional overriding. Not recommended to use some ri
 The value provided should contain the \code{sep} value to specify the nesting information unless it is an outermost key.}
 }
 \value{
-\code{list}. The result list contains the alignment information including the primary paths only in the new JSON,
+\code{list}. The result list contains the alignment information of three types: the primary paths only in the new JSON,
 only in the old JSON, and in both.
 }
 \description{
@@ -26,7 +26,7 @@ Align the two JSON lists by specifying the primary path(keys), to support
 the left/inner/right-join style comparison.
 }
 \details{
-The function borrows the idea from the data set operation, whose result contains five data frames:
+The function borrows the idea from the data set operation, and the result contains:
 \itemize{
 \item{\code{new}, contains the flattening result of \code{json_new}.}
 \item{\code{old}, contains the flattening result of \code{json_old}.}
