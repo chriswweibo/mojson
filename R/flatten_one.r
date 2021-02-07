@@ -1,11 +1,11 @@
-#' Single JSON object flatten
+#' Single JSON Object Flatten
 #' @description Transform a JSON object into a flattened data frame in a serialization way.
 #' @param dat \code{list}. The list from a JSON object.
 #' @param sep \code{character}. A character/string used to separate keys in the nesting path.
 #'     Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 #'     When \code{compact = FALSE}, it is unnecessary to assign \code{sep} explicitly, unless @ has been used in the key fields.
 #' @param compact logical. Whether to generate the compact or completely expanded data frame. Defaults to \code{TRUE}.
-#' @details The function can flatten a single JSON object into a data frame which has two different schemas according to the \code{compact} value.
+#' @details The function flattens a single JSON object into a data frame with two different schemas according to the \code{compact} value.
 #'     \itemize{
 #'     \item{For \code{compact = TRUE}, the data frame contains two columns. One is `paths` which stores the absolute path of each record.
 #'     And the other is `values` which stores the corresponding values of each path.}
@@ -13,7 +13,7 @@
 #'     }
 #'     \bold{It actually applies the serialization way for flattening, which means the early values correspondingly appear in the heading rows of the data frame.}
 #'     And if the value is a list object in the original data or a non-named list/vector in the R environment,
-#'     the path will correspondingly be appended with an integer to specify each list element.
+#'     the path will be correspondingly appended with an integer to specify each list element.
 #'     For example, in the raw JSON file, "\{'a':\[1, 2, 3\]\}" will be \code{data.frame(paths = c('a1', 'a2', 'a3'), values = c(1, 2, 3))}.
 #'     Great credits to the answer of \href{https://stackoverflow.com/questions/8139677/how-to-flatten-a-list-to-a-list-without-coercion/8139959#8139959}{Tommy}.
 #' @seealso \code{\link{expanddf}}.

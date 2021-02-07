@@ -1,13 +1,13 @@
-#' JSON description
-#' @description  Give descriptive information about the JSON list, such as the key frequency, the nesting information and the value distribution.
+#' JSON Description
+#' @description  Provide descriptive information about the JSON list, such as the key frequency, the nesting information and the value distribution.
 #'
 #' @param dat \code{list}. Loaded result from a JSON file.
 #' @param sep \code{character}. A character/string passed to \code{\link{flattenj}}.
 #'     Defaults to @ to avoid the occasional overriding. Not recommended to use some risky characters like . and \.
 #' @details The result contains three parts:
 #'    \itemize{
-#'    \item{`key_summary`, presents the description of keys, which contains all the keys and the respective frequencies.}
-#'    \item{`value_summary`, presents the description of values, which contains all atomic values and the respective frequencies.}
+#'    \item{`key_summary`, presents the description of keys, which contains all the keys and their respective frequencies.}
+#'    \item{`value_summary`, presents the description of values, which contains all atomic values and their respective frequencies.}
 #'    \item{`stream_summary`, presents the description of paths' direct upstream keys and downstream keys.
 #'     The \code{up} data frame stores the upstream information about where the current key is nested.
 #'     And the \code{down} data frame stores the downstream information about how the current key branches.

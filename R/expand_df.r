@@ -1,12 +1,12 @@
-#' Data frame expand
+#' Data Frame Expand
 #' @description Expand a data frame by splitting one column
 #' @param df \code{data frame}. The input to be expanded.
 #' @param column \code{character}. The column to be splitted.
 #' @param sep \code{character}. Separator for splitting a column.
 #' @details This function implements the data frame expansion if you need to split one column by the specific characters.
-#'     The new data frame will generate the new columns which are named as 'level' appended by position-indexing numbers, such as 'level1', 'level2'.
+#'     The new data frame will generate the new columns named as 'level' appended by position-indexing numbers, such as 'level1', 'level2'.
 #'     The maximum of appended numbers indicates the most splitting pieces for one cell.
-#'     If the splitting results are fewer than the maximum, the row will be padded and corresponding cells will be filled with NAs.
+#'     If the splitting results of one cell are fewer than the maximum, the row will be padded and corresponding cells will be filled with NAs.
 #'
 #' @return \code{data frame}. The resultant data frame with new columns.
 #' @importFrom tidyr separate

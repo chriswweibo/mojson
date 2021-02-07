@@ -1,4 +1,4 @@
-#' JSON load
+#' JSON Load
 #' @description Load a JSON file into an R list
 #' @param file \code{character}. A JSON file connection.
 #' @param encoding \code{character}. Encoding method to use. Defaults to UTF-8.
