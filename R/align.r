@@ -12,7 +12,11 @@
 #'
 #' @return \code{list}. The result list contains the alignment information of three types: the primary paths only in the new JSON,
 #'     only in the old JSON, and in both.
+<<<<<<< HEAD
 #' @details The function borrows the idea from the data set operation, and the result contains:
+=======
+#' @details The function borrows the idea from the data set operation, and the result contains five data frames:
+>>>>>>> a66478cce54b5d8a6b01ef03eec1c7a11bfbff32
 #'     \itemize{
 #'     \item{`new`, contains the flattening result of `json_new`.}
 #'     \item{`old`, contains the flattening result of `json_old`.}
