@@ -1,5 +1,6 @@
 # mojson
 [![](https://cranlogs.r-pkg.org/badges/mojson)](https://cran.rstudio.com/web/packages/mojson/index.html)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/mojson)](https://cran.rstudio.com/web/packages/mojson/index.html)
 
 > A Serialization-Style Flattening and Description for JSON
 
